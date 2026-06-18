@@ -78,21 +78,25 @@ public class PoligonosApp extends Application {
      * Inicia a apresentação da interface gráfica da aplicação.
      * @param mainStage janela inicial da aplicação
      */
+
+    private static Polygon criarPoligono(final List<Point> pontos) {
+        final var poligono = new Polygon();
+        for (final Point point : pontos) {
+            poligono.getPoints().addAll(point.x(), point.y());
+        }
+        poligono.setFill(Color.BLUE);
+        poligono.setStroke(Color.BLACK);
+        return poligono;
+    }
+
     @Override
     public void start(final Stage mainStage) {
         final var root = new Pane();
         final var scene = new Scene(root, 800, 600);
 
-        for (final var listaPontos : pontosPoligonos) {
-            final var poligono = new Polygon();
-            for (final Point point : listaPontos) {
-                poligono.getPoints().addAll(point.x(), point.y());
-            }
-
-            poligono.setFill(Color.BLUE);
-            poligono.setStroke(Color.BLACK);
-            root.getChildren().add(poligono);
-        }
+        pontosPoligonos.stream()
+                .map(PoligonosApp::criarPoligono)
+                .forEach(root.getChildren()::add);
 
         final List<String> perimetros = perimetros().stream().map(p -> String.format("%.1f", p)).toList();
         final var label1 = newLabel("Perímetro dos Polígonos: " + perimetros, 500);
