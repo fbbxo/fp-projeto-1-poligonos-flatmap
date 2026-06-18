@@ -74,20 +74,21 @@ public class PoligonosApp extends Application {
         launch(args);
     }
 
-    /**
-     * Inicia a apresentação da interface gráfica da aplicação.
-     * @param mainStage janela inicial da aplicação
-     */
 
     private static Polygon criarPoligono(final List<Point> pontos) {
         final var poligono = new Polygon();
         pontos.stream()
                 .flatMap(p -> Stream.of(p.x(), p.y()))
-                .forEach(poligono.getPoints()::add);
+                .forEach(coord -> poligono.getPoints().add(coord));
         poligono.setFill(Color.BLUE);
         poligono.setStroke(Color.BLACK);
         return poligono;
     }
+
+    /**
+     * Inicia a apresentação da interface gráfica da aplicação.
+     * @param mainStage janela inicial da aplicação
+     */
 
     @Override
     public void start(final Stage mainStage) {
