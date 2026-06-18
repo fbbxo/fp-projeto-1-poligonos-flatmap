@@ -81,9 +81,9 @@ public class PoligonosApp extends Application {
 
     private static Polygon criarPoligono(final List<Point> pontos) {
         final var poligono = new Polygon();
-        for (final Point point : pontos) {
-            poligono.getPoints().addAll(point.x(), point.y());
-        }
+        pontos.stream()
+                .flatMap(p -> Stream.of(p.x(), p.y()))
+                .forEach(poligono.getPoints()::add);
         poligono.setFill(Color.BLUE);
         poligono.setStroke(Color.BLACK);
         return poligono;
