@@ -98,7 +98,9 @@ public class PoligonosApp extends Application {
                 .map(PoligonosApp::criarPoligono)
                 .forEach(root.getChildren()::add);
 
-        final List<String> perimetros = perimetros().stream().map(p -> String.format("%.1f", p)).toList();
+        final List<String> perimetros = perimetros().stream()
+                .map("%.1f"::formatted)
+                .toList();
         final var label1 = newLabel("Perímetro dos Polígonos: " + perimetros, 500);
         final var label2 = newLabel("Tipo dos Polígonos: " + tipoPoligonos(), 530);
         root.getChildren().addAll(label1, label2);
